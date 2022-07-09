@@ -1,0 +1,42 @@
+{
+  "name": "@hexlet/code",
+  "version": "0.0.1",
+  "description": "[![Actions Status](https://github.com/antonsmolko/js-algorithms-project-lvl1/workflows/hexlet-check/badge.svg)](https://github.com/antonsmolko/js-algorithms-project-lvl1/actions)",
+  "main": "index.js",
+  "simple-git-hooks": {
+    "pre-push": "make lint"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonsmolko/js-algorithms-project-lvl1.git"
+  },
+  "keywords": [],
+  "author": "Anon Smolko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antonsmolko/js-algorithms-project-lvl1/issues"
+  },
+  "type": "module",
+  "homepage": "https://github.com/antonsmolko/js-algorithms-project-lvl1#readme",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@jest/globals": "^28.1.2",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.5.3",
+    "jest": "^28.1.2",
+    "jest-cli": "^28.1.2",
+    "npm-check-updates": "^15.2.5",
+    "simple-git-hooks": "^2.8.0"
+  }
+}
