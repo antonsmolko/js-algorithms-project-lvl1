@@ -1,8 +1,12 @@
 const searchEngine = (docs) => {
-  const getRegexp = (query) => new RegExp(`\\b${query}\\b`, 'g');
+  const getRegexp = (query) => new RegExp(`\\b${query.toLowerCase()}\\b`, 'g');
 
   return {
-    search: (query) => docs.filter(({ text }) => getRegexp(query).test(text)).map(({ id }) => id),
+    search: (token) => docs.filter(({ text }) => {
+      console.log(text)
+      const term = token.match(/\w+/g);
+      return term.some((query) => getRegexp(query).test(text.toLowerCase()))
+    }).map(({ id }) => id),
   };
 };
 
