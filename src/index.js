@@ -1,13 +1,21 @@
+import _ from 'lodash';
+
 const searchEngine = (docs) => {
-  const getRegexp = (query) => new RegExp(`\\b${query.toLowerCase()}\\b`, 'g');
+  const getRegexp = (query) => new RegExp(`\\b${query}\\b`, 'gi');
 
   return {
-    search: (token) => docs.filter(({ text }) => {
-      console.log(text)
-      const term = token.match(/\w+/g);
-      return term.some((query) => getRegexp(query).test(text.toLowerCase()))
-    }).map(({ id }) => id),
-  };
+    search: (token) => _.chain(docs)
+      .map(({ id, text }) => {
+        const [term] = token.match(/\w+/g);
+        const matches = text.match(getRegexp(term))
+
+        return { id, matches: _.get(matches, 'length', null) }
+      })
+      .filter('matches')
+      .orderBy(['matches'], ['desc'])
+      .map(({ id }) => id)
+      .value()
+  }
 };
 
 export default searchEngine;
