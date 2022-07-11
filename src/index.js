@@ -1,18 +1,25 @@
 import _ from 'lodash';
 
 const searchEngine = (docs) => {
-  const getRegexp = (query) => new RegExp(`\\b${query}\\b`, 'gi');
+  const getRegexp = (term) => new RegExp(`\\b${term}\\b`, 'gi');
 
   return {
-    search: (token) => _.chain(docs)
+    search: (query) => _.chain(docs)
       .map(({ id, text }) => {
-        const [term] = token.match(/\w+/g);
-        const matches = text.match(getRegexp(term))
+        const tokens = query.split(' ');
+        const terms = tokens.flatMap((token) => token.match(/\w+/g));
+        const matches = _.chain(terms)
+          .map((term) => text.match(getRegexp(term)))
+          .compact()
+          .value();
 
-        return { id, matches: _.get(matches, 'length', null) }
+        const matchesSetCount = matches.length
+        const totalMatchesCount = matches.flat().length
+
+        return { id, matchesSetCount, totalMatchesCount }
       })
-      .filter('matches')
-      .orderBy(['matches'], ['desc'])
+      .filter('matchesSetCount')
+      .orderBy(['matchesSetCount', 'totalMatchesCount'], ['desc', 'desc'])
       .map(({ id }) => id)
       .value()
   }
