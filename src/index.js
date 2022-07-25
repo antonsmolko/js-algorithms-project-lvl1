@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const wordRegexp = /[\wа-яА-Я]+/gi;
+const wordRegexp = /[\wа-яА-Я'-]+/gi;
 const getWordsCount = (doc) => {
   const matches = doc.match(wordRegexp);
   return _.get(matches, 'length', 0);
